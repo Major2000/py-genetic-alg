@@ -146,3 +146,10 @@ def basic(target: str, genes: list[str], debug: bool = True) -> tuple[int, int, 
             child_1 = parent_1[:random_slice] + parent_2[random_slice:]
             child_2 = parent_2[:random_slice] + parent_1[random_slice:]
             return (child_1, child_2)
+
+        def mutate(child: str) -> str:
+            """Mutate a random gene of a child with another one from the list"""
+            child_list = list(child)
+            if random.uniform(0, 1) < MUTATION_PROBABILITY:
+                child_list[random.randint(0, len(child)) - 1] = random.choice(genes)
+            return "".join(child_list)
