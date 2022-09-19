@@ -103,3 +103,13 @@ def basic(target: str, genes: list[str], debug: bool = True) -> tuple[int, int, 
         population_score = sorted(population_score, key=lambda x: x[1], reverse=True)
         if population_score[0][0] == target:
             return (generation, total_population, population_score[0][0])
+
+        # Print the Best result every 10 generation
+        # just to know that the algorithm is working
+        if debug and generation % 10 == 0:
+            print(
+                f"\nGeneration: {generation}"
+                f"\nTotal Population:{total_population}"
+                f"\nBest score: {population_score[0][1]}"
+                f"\nBest string: {population_score[0][0]}"
+            )
