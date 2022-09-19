@@ -113,3 +113,9 @@ def basic(target: str, genes: list[str], debug: bool = True) -> tuple[int, int, 
                 f"\nBest score: {population_score[0][1]}"
                 f"\nBest string: {population_score[0][0]}"
             )
+        
+        # Flush the old population keeping some of the best evolutions
+        # Keeping this avoid regression of evolution
+        population_best = population[: int(N_POPULATION / 3)]
+        population.clear()
+        population.extend(population_best)
