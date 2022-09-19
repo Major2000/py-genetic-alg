@@ -119,3 +119,8 @@ def basic(target: str, genes: list[str], debug: bool = True) -> tuple[int, int, 
         population_best = population[: int(N_POPULATION / 3)]
         population.clear()
         population.extend(population_best)
+
+        # Normalize population score from 0 to 1
+        population_score = [
+            (item, score / len(target)) for item, score in population_score
+        ]
