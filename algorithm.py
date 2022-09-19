@@ -71,5 +71,8 @@ def basic(target: str, genes: list[str], debug: bool = True) -> tuple[int, int, 
 
     # this loop will end when the perfect match is found
     while True:
-         
-    
+        generation += 1
+        total_population += len(population)
+
+        # random population created now its time to evaluate
+        def evaluate()
