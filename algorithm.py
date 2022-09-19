@@ -67,7 +67,7 @@ def basic(target: str, genes: list[str], debug: bool = True) -> tuple[int, int, 
         population.append("".join([random.choice(genes) for i in range(len(target))]))
     
     # some logs to what the algorithm is doing
-    generation, total_population = 0.0
+    generation, total_population = 0, 0
 
     # this loop will end when the perfect match is found
     while True:
@@ -90,7 +90,7 @@ def basic(target: str, genes: list[str], debug: bool = True) -> tuple[int, int, 
         # Adding a bit of concurrency can make everything faster,
         import concurrent.futures
         population_score: list[tuple[str, float]] = []
-        with concurrent.futures.ThreadPoolExecutor(max_workers=NUM_WORKERS) as executor:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=N_POPULATION) as executor:
             futures = {executor.submit(evaluate, item) for item in population}
             concurrent.futures.wait(futures)
             population_score = [item.result() for item in futures]
@@ -178,7 +178,7 @@ if __name__ == "__main__":
         "nopqrstuvwxyz.,;!?+-*#@^'èéòà€ù=)(&%$£/\\"
     )
     print(
-        "\nGeneration: %s\nTotal Population: %s\nTarget: %s"
+        "\nGeneration: %s\nTotal Population: %s\nTarget: %s" 
         % basic(target_str, genes_list)
     )
         
