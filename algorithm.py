@@ -66,4 +66,8 @@ def basic(target: str, genes: list[str], debug: bool = True) -> tuple[int, int, 
     for _ in range(N_POPULATION):
         population.append("".join([random.choice(genes) for i in range(len(target))]))
     
+    # some logs to what the algorithm is doing
+    generation, total_population = 0.0
+
+    
     
