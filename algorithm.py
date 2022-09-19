@@ -124,3 +124,18 @@ def basic(target: str, genes: list[str], debug: bool = True) -> tuple[int, int, 
         population_score = [
             (item, score / len(target)) for item, score in population_score
         ]
+
+        # Select, Crossover and Mutate a new population
+        def select(parent_1: tuple[str, float]) -> list[str]:
+            """Select the second parent and generate new population"""
+            pop = []
+            # Generate more child proportionally to the fitness score
+            child_n = int(parent_1[1] * 100) + 1
+            child_n = 10 if child_n >= 10 else child_n
+            for _ in range(child_n):
+                parent_2 = population_score[random.randint(0, N_SELECTED)][0]
+                child_1, child_2 = crossover(parent_1[0], parent_2)
+                # Append new string to the population list
+                pop.append(mutate(child_1))
+                pop.append(mutate(child_2))
+            return pop
