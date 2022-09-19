@@ -95,4 +95,6 @@ def basic(target: str, genes: list[str], debug: bool = True) -> tuple[int, int, 
             concurrent.futures.wait(futures)
             population_score = [item.result() for item in futures]
         
-        # but for simple algorithms you may want tto make things slow by 
+        # but for simple algorithms you may want to make things slower
+        # we just need to call evaluate for every item inside population
+        # population_score = [evaluate(item) for item in population] 
