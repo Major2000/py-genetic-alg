@@ -25,3 +25,45 @@ MUTATION_PROBABILITY = 0.4
 
 # a seed to improve randomness required by algorithm
 random.seed(random.randint(0, 1000))
+
+def basic(target: str, genes: list[str], debug: bool = True) -> tuple[int, int, str]:
+    """
+        Verify that the target contains no genes besides the ones inside genes variable.
+        >>> from string import ascii_lowercase
+        >>> basic("doctest", ascii_lowercase, debug=False)[2]
+        'doctest'
+        >>> genes = list(ascii_lowercase)
+        >>> genes.remove("e")
+        >>> basic("test", genes)
+        Traceback (most recent call last):
+        ...
+        ValueError: ['e'] is not in genes list, evolution cannot converge
+        >>> genes.remove("s")
+        >>> basic("test", genes)
+        Traceback (most recent call last):
+        ...
+        ValueError: ['e', 's'] is not in genes list, evolution cannot converge
+        >>> genes.remove("t")
+        >>> basic("test", genes)
+        Traceback (most recent call last):
+        ...
+        ValueError: ['e', 's', 't'] is not in genes list, evolution cannot converge
+    """
+
+    # Verify if N_POPULATION is bigger than N_SELECTED
+    if N_POPULATION < N_SELECTED:
+        raise ValueError(f"{N_POPULATION} must be bigger than {N_SELECTED}")
+    
+    # Verify that the target contains no genes besides the ones inside genes variable.
+    not_in_genes_list = sorted({c for c in target if c not in genes})
+    if not_in_genes_list:
+        raise ValueError(
+            f"{not_in_genes_list} is not in genes list, evolution cannot converge"
+        )
+    
+    # generate random starting population
+    population = []
+    for _ in range(N_POPULATION):
+        population.append("".join([random.choice(genes) for i in range(len(target))]))
+    
+    
