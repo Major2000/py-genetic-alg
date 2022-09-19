@@ -139,3 +139,10 @@ def basic(target: str, genes: list[str], debug: bool = True) -> tuple[int, int, 
                 pop.append(mutate(child_1))
                 pop.append(mutate(child_2))
             return pop
+
+        def crossover(parent_1: str, parent_2: str) -> tuple[str, str]:
+            """Slice and combine two string in a random point"""
+            random_slice = random.randint(0, len(parent_1) - 1)
+            child_1 = parent_1[:random_slice] + parent_2[random_slice:]
+            child_2 = parent_2[:random_slice] + parent_1[random_slice:]
+            return (child_1, child_2)
