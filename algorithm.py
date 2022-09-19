@@ -1,5 +1,7 @@
-
-# multithread algorithm showing how the four stages of algorithm works
+"""
+    About: multithread algorithm showing how the four stages of algorithm works
+    Author: Edgar Nyandoro
+"""
 
 from __future__ import annotations
 
@@ -21,3 +23,5 @@ N_SELECTED = 50
 """
 MUTATION_PROBABILITY = 0.4
 
+# a seed to improve randomness required by algorithm
+random.seed(random.randint(0, 1000))
