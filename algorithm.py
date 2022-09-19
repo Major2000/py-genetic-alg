@@ -125,7 +125,9 @@ def basic(target: str, genes: list[str], debug: bool = True) -> tuple[int, int, 
             (item, score / len(target)) for item, score in population_score
         ]
 
+
         # Select, Crossover and Mutate a new population
+
         def select(parent_1: tuple[str, float]) -> list[str]:
             """Select the second parent and generate new population"""
             pop = []
@@ -153,3 +155,16 @@ def basic(target: str, genes: list[str], debug: bool = True) -> tuple[int, int, 
             if random.uniform(0, 1) < MUTATION_PROBABILITY:
                 child_list[random.randint(0, len(child)) - 1] = random.choice(genes)
             return "".join(child_list)
+        
+
+        # This is Selection
+        for i in range(N_SELECTED):
+            population.extend(select(population_score[int(i)]))
+            # Check if the population has already reached the maximum value and if so,
+            # break the cycle.  if this check is disabled the algorithm will take
+            # forever to compute large strings but will also calculate small string in
+            # a lot fewer generations
+            if len(population) > N_POPULATION:
+                break
+        
+
