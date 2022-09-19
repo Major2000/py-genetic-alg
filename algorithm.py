@@ -97,4 +97,9 @@ def basic(target: str, genes: list[str], debug: bool = True) -> tuple[int, int, 
         
         # but for simple algorithms you may want to make things slower
         # we just need to call evaluate for every item inside population
-        # population_score = [evaluate(item) for item in population] 
+        # population_score = [evaluate(item) for item in population]
+
+        # Check if there is a matching evolution
+        population_score = sorted(population_score, key=lambda x: x[1], reverse=True)
+        if population_score[0][0] == target:
+            return (generation, total_population, population_score[0][0])
