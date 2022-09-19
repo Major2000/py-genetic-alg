@@ -86,3 +86,13 @@ def basic(target: str, genes: list[str], debug: bool = True) -> tuple[int, int, 
                 [g for position, g in enumerate(item) if g == main_target[position]]
             )
             return (item, float(score))
+
+        # Adding a bit of concurrency can make everything faster,
+        import concurrent.futures
+        population_score: list[tuple[str, float]] = []
+        with concurrent.futures.ThreadPoolExecutor(max_workers=NUM_WORKERS) as executor:
+            futures = {executor.submit(evaluate, item) for item in population}
+            concurrent.futures.wait(futures)
+            population_score = [item.result() for item in futures]
+        
+        # but for simple algorithms you may want tto make things slow by 
