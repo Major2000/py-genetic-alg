@@ -69,5 +69,7 @@ def basic(target: str, genes: list[str], debug: bool = True) -> tuple[int, int, 
     # some logs to what the algorithm is doing
     generation, total_population = 0.0
 
-    
+    # this loop will end when the perfect match is found
+    while True:
+         
     
